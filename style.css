@@ -1,0 +1,22 @@
+html{
+    background-color: grey;
+}
+
+#gamepanel{
+    width: 500px;
+    height: 500px;
+    left: 100px;
+    border: 1px solid black;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#mainheader{
+    font-size: large;
+    font-weight: bold;
+    justify-self: end;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
