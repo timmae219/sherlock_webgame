@@ -13,3 +13,7 @@ function setGamePanelContent(screenName){
     screenController.currentScreen = screenName;
     document.getElementById("gamepanel").innerHTML= screenController.getScreenContent();
 }
+
+function handleClickOnSolve(){
+    alert(`Du hast auf "Fall lösen" geklickt!`);
+}
