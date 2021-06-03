@@ -3,11 +3,11 @@ html{
 }
 
 #gamepanel{
-    width: 500px;
+    width: 750px;
     height: 500px;
     left: 100px;
     border: 1px solid black;
-    background-color: white;
+    background-color: burlywood;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -19,4 +19,108 @@ html{
     justify-self: end;
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#main-map{
+    display: grid;
+    grid-template-columns: repeat(8,10%);
+    grid-template-rows: repeat(12,10%);
+    height: 89%;
+    gap: 1px;
+}
+
+#main-map-map{
+    border: 1.5px black dotted;
+    display: grid;
+    height: 100%;
+    gap: 3px;
+    grid-column-start: 1;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 11;
+    background-image: url("assets/img/leere_map.jpg");
+    background-size: cover;
+}
+
+#main-map-solve-button{
+    border: 1.5px black double;
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 11;
+    grid-row-end: 12;
+}
+
+#main-map-visited-places{
+    border: 1px black solid;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    grid-column-start: 11;
+    grid-column-end: 12;
+}
+
+/*
+    Hardgecodete Platzierung der Elemente auf der Karte
+*/
+
+#main-map-church{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    background-image: url("assets/img/church.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-castle{
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    background-image: url("assets/img/castle.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house1{
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 5;
+    grid-column-end: 6;
+    background-image: url("assets/img/house1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house2{
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 6;
+    grid-column-end: 7;
+    background-image: url("assets/img/house2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-forest{
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 8;
+    grid-column-end: 9;
+    background-image: url("assets/img/tree2.png");
+    background-size: cover;
+}
+
+/*
+    Hardgecodete Placeholder
+*/
+
+#main-map-horizontal-placeholder{
+    grid-column-start: 9;
+    grid-column-end: 10;
+}
+
+#main-map-vertical-placeholder{
+    grid-row-start: 6;
+    grid-row-end: 7;
 }
