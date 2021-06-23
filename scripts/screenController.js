@@ -5,6 +5,8 @@ export default class ScreenController{
 
     getScreenContent(){
         switch(this.currentScreen){
+            case 'intro':
+                return this.getRawHtml("./screens/intro.html");
             case 'main':
                 return this.getRawHtml("./screens/main/mainscreen.html");
         }

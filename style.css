@@ -21,6 +21,35 @@ html{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+#status-panel{
+    font-weight: lighter;
+    background-color: white;
+    border: 1px black solid;
+    padding: 5px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+    Intro-Screen
+*/
+
+#intro-panel{
+    text-align: center;
+    margin-top: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    animation: ease-in linear 5s;   /* Animation haut leider noch nicht ganz hin*/
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: large;
+    top: 50%;
+}
+
+/*
+    Main-Screen (Karte)
+*/
+
 #main-map{
     border: 1.5px black dotted;
     display: grid;
@@ -194,9 +223,9 @@ html{
     background-repeat: no-repeat;
 }
 
-/*
-    Hardgecodete Placeholder
-*/
+    /*
+        Hardgecodete Placeholder für die Karte
+    */
 
 #main-map-horizontal-placeholder{
     grid-column-start: 35;
