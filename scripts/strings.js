@@ -1,0 +1,1 @@
+// Hier kommen die ganzen hardgecodeten sowie dynamischen Texte rein 

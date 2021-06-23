@@ -1,11 +1,3 @@
-function handleClickOnChurch(){
-
-}
-
-function handleClickOnCastle(){
-
-}
-
 function handleClickOnHouse1(){
 
 }
