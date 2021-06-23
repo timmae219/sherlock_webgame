@@ -3,8 +3,8 @@ html{
 }
 
 #gamepanel{
-    width: 750px;
-    height: 500px;
+    width: 1500px;
+    height: 1000px;
     left: 100px;
     border: 1px solid black;
     background-color: burlywood;
@@ -22,93 +22,176 @@ html{
 }
 
 #main-map{
-    display: grid;
-    grid-template-columns: repeat(8,10%);
-    grid-template-rows: repeat(12,10%);
-    height: 89%;
-    gap: 1px;
-}
-
-#main-map-map{
     border: 1.5px black dotted;
     display: grid;
     height: 100%;
     gap: 3px;
     grid-column-start: 1;
-    grid-column-end: 11;
+    grid-column-end: 36;
     grid-row-start: 1;
-    grid-row-end: 11;
+    grid-row-end: 24;
     background-image: url("assets/img/leere_map.jpg");
     background-size: cover;
 }
 
 #main-map-solve-button{
     border: 1.5px black double;
-    grid-column-start: 5;
-    grid-column-end: 6;
-    grid-row-start: 11;
-    grid-row-end: 12;
+    margin: 40px;
+    padding: 10px;
+    background-color: white;
+    color: red;
 }
 
-#main-map-visited-places{
-    border: 1px black solid;
-    grid-row-start: 1;
-    grid-row-end: 5;
-    grid-column-start: 11;
-    grid-column-end: 12;
+#main-map-show-candidates-button{
+    border: 1.5px black double;
+    margin: 40px;
+    padding: 10px;
+    background-color: white;
+    color: red;
 }
 
 /*
     Hardgecodete Platzierung der Elemente auf der Karte
 */
 
-#main-map-church{
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    background-image: url("assets/img/church.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#main-map-castle{
-    grid-row-start: 5;
-    grid-row-end: 6;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    background-image: url("assets/img/castle.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
 #main-map-house1{
-    grid-row-start: 3;
-    grid-row-end: 4;
+    grid-row-start: 14;
+    grid-row-end: 17;
     grid-column-start: 5;
-    grid-column-end: 6;
-    background-image: url("assets/img/house1.png");
+    grid-column-end: 8;
+    background-image: url("assets/img/home1.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 #main-map-house2{
-    grid-row-start: 4;
+    grid-row-start: 21;
+    grid-row-end: 23;
+    grid-column-start: 7;
+    grid-column-end: 11;
+    background-image: url("assets/img/home2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house3{
+    grid-row-start: 13;
+    grid-row-end: 15;
+    grid-column-start: 18;
+    grid-column-end: 22;
+    background-image: url("assets/img/home3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house4{
+    grid-row-start: 3;
     grid-row-end: 5;
-    grid-column-start: 6;
+    grid-column-start: 3;
     grid-column-end: 7;
-    background-image: url("assets/img/house2.png");
+    background-image: url("assets/img/home4.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house5{
+    grid-row-start: 12;
+    grid-row-end: 14;
+    grid-column-start: 25;
+    grid-column-end: 29;
+    background-image: url("assets/img/home5.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house6{
+    grid-row-start: 6;
+    grid-row-end: 8;
+    grid-column-start: 5;
+    grid-column-end: 9;
+    background-image: url("assets/img/home6.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house7{
+    grid-row-start: 20;
+    grid-row-end: 22;
+    grid-column-start: 31;
+    grid-column-end: 35;
+    background-image: url("assets/img/home7.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house8{
+    grid-row-start: 15;
+    grid-row-end: 17;
+    grid-column-start: 11;
+    grid-column-end: 15;
+    background-image: url("assets/img/home8.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house9{
+    grid-row-start: 6;
+    grid-row-end: 8;
+    grid-column-start: 17;
+    grid-column-end: 21;
+    background-image: url("assets/img/home9.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house10{
+    grid-row-start: 9;
+    grid-row-end: 11;
+    grid-column-start: 12;
+    grid-column-end: 16;
+    background-image: url("assets/img/home10.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house11{
+    grid-row-start: 16;
+    grid-row-end: 18;
+    grid-column-start: 15;
+    grid-column-end: 19;
+    background-image: url("assets/img/home11.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-house12{
+    grid-row-start: 22;
+    grid-row-end: 24;
+    grid-column-start: 21;
+    grid-column-end: 25;
+    background-image: url("assets/img/home12.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#main-map-cabanon{
+    grid-row-start: 5;
+    grid-row-end: 7;
+    grid-column-start: 25;
+    grid-column-end: 29;
+    background-image: url("assets/img/cabanon1.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 #main-map-forest{
     grid-row-start: 3;
-    grid-row-end: 4;
-    grid-column-start: 8;
-    grid-column-end: 9;
+    grid-row-end: 5;
+    grid-column-start: 29;
+    grid-column-end: 33;
     background-image: url("assets/img/tree2.png");
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 /*
@@ -116,11 +199,11 @@ html{
 */
 
 #main-map-horizontal-placeholder{
-    grid-column-start: 9;
-    grid-column-end: 10;
+    grid-column-start: 35;
+    grid-column-end: 36;
 }
 
 #main-map-vertical-placeholder{
-    grid-row-start: 6;
-    grid-row-end: 7;
+    grid-row-start: 23;
+    grid-row-end: 24;
 }
