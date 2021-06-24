@@ -35,16 +35,48 @@ html{
     Intro-Screen
 */
 
+.animation{
+    animation: fadeIn linear 3s;   /* Animation haut leider noch nicht ganz hin*/
+    -webkit-animation: fadeIn linear 3s;
+    -moz-animation: fadeIn linear 3s;
+    -o-animation: fadeIn linear 3s;
+    -ms-animation: fadeIn linear 3s;
+}
+
 #intro-panel{
     text-align: center;
     margin-top: 50%;
     margin-left: auto;
     margin-right: auto;
-    animation: ease-in linear 5s;   /* Animation haut leider noch nicht ganz hin*/
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: large;
     top: 50%;
 }
+
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
 
 /*
     Main-Screen (Karte)

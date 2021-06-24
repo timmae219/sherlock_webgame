@@ -18,12 +18,22 @@ function setGamePanelContent(screenName){
     if(screenName === 'intro'){
         // TODO: irgendwie hauen die Animationen noch nicht so ganz hin.
         document.getElementById('status-panel').style.visibility = "hidden";
+        document.getElementById('intro-panel').classList.add('animation');
         document.getElementById('intro-panel').innerHTML = `<p>${introText1}</p>`;
         document.getElementById('intro-panel').onclick = function(){
+            document.getElementById('intro-panel').classList.remove('animation');
+            void document.getElementById('intro-panel').offsetWidth;
+            document.getElementById('intro-panel').classList.add('animation');
             document.getElementById('intro-panel').innerHTML = `<p>${introText2}</p>`;
             document.getElementById('intro-panel').onclick = function(){
+                document.getElementById('intro-panel').classList.remove('animation');
+                void document.getElementById('intro-panel').offsetWidth;
+                document.getElementById('intro-panel').classList.add('animation');
                 document.getElementById('intro-panel').innerHTML = `<p>${introText3}</p>`;
                 document.getElementById('intro-panel').onclick = function(){
+                    document.getElementById('intro-panel').classList.remove('animation');
+                    void document.getElementById('intro-panel').offsetWidth;
+                    document.getElementById('intro-panel').classList.add('animation');
                     document.getElementById('intro-panel').innerHTML = `<p>${introText4}</p>`;
                     document.getElementById('intro-panel').onclick = function(){
                         gotoMainScreen();
