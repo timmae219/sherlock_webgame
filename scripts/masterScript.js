@@ -16,7 +16,7 @@ var mainTheme = new Audio('../assets/audio/background_1.mp3');
 
     Zu Debugzwecken kann man den initialen Screen hier abändern, damit man nicht immer bis zum gewünschten Punkt "spielen" muss.
 */
-var screenController = new ScreenController('intro');
+var screenController = new ScreenController('main');
 
 // Zuordnung von Events/Rätseln/Spielen zu den Häusern (Wald und Cabanon sind fixe Events!)
 var houseEventMapping = {};
@@ -24,7 +24,8 @@ var houseEventMapping = {};
 /*
     Spiel-Kontrollfluss
 */
-handleIntroScreen();
+//handleIntroScreen();
+gotoMainScreen();
 initializeHouseEventMapping();
 
 console.log(houseEventMapping);
@@ -94,13 +95,27 @@ function gotoMainScreen(){
 
 // Bei Wald Zeit stoppen!
 function handleClickOnLocation(locationName){
+    setGamePanelContent("location");
     if(locationName.includes('house')){
         let effect = new Audio('../assets/audio/opening_door_sound_effect.mp3');
         effect.play();
+        document.getElementById('gamepanel').style.backgroundColor = "transparent";
+        document.getElementById('status-panel').style.visibility = "hidden";
+        if(locationName === 'house1' || locationName === 'house5' || locationName === 'house9'){
+            document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background1.jpg')";
+        }
+        if(locationName === 'house2' || locationName === 'house6' || locationName === 'house10'){
+            document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background2.jpg')";
+        }
+        if(locationName === 'house3' || locationName === 'house7' || locationName === 'house11'){
+            document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background3.png')";
+        }
+        if(locationName === 'house4' || locationName === 'house8' || locationName === 'house12'){
+            document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background4.jpg')";
+        }
     }
     if(locationName === 'cabanon'){
         // TODO: Knarzende Bretter-Soundeffekt
-        // TODO: morsche Holzwand-Hintergrund
     }
     if(locationName === 'forest'){
         // TODO: Blätterrascheln-Soundeffekt

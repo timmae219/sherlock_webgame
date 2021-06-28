@@ -9,6 +9,10 @@ export default class ScreenController{
                 return this.getRawHtml("./screens/intro.html");
             case 'main':
                 return this.getRawHtml("./screens/main/mainscreen.html");
+            case 'location':
+                return this.getRawHtml("./screens/location/location_screen.html"); 
+            case 'game':
+                return this.getRawHtml("./screens/game/game_screen.html");       
         }
     }
 

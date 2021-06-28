@@ -268,3 +268,12 @@ html{
     grid-row-start: 23;
     grid-row-end: 24;
 }
+
+/*
+    Location-Screen
+*/
+#location-div{
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
