@@ -21,14 +21,20 @@ var screenController = new ScreenController('main');
 // Zuordnung von Events/Rätseln/Spielen zu den Häusern (Wald und Cabanon sind fixe Events!)
 var houseEventMapping = {};
 
+var housePersonMapping = {};
+
+var personTextMapping = {};
+
 /*
     Spiel-Kontrollfluss
 */
 //handleIntroScreen();
 gotoMainScreen();
 initializeHouseEventMapping();
+initializePersonHouseMapping();
 
-console.log(houseEventMapping);
+console.log(`INITIALIZED HOUSE PERSON MAPPING: ${housePersonMapping.toString()}`);
+console.log(Object.keys(housePersonMapping));
 
 
 // Diese Funktion setzt den Content, der im Panel angezeigt werden soll
@@ -96,29 +102,48 @@ function gotoMainScreen(){
 // Bei Wald Zeit stoppen!
 function handleClickOnLocation(locationName){
     setGamePanelContent("location");
+    document.getElementById('gamepanel').style.backgroundColor = "transparent";
+    document.getElementById('status-panel').style.visibility = "hidden";
     if(locationName.includes('house')){
         let effect = new Audio('../assets/audio/opening_door_sound_effect.mp3');
         effect.play();
-        document.getElementById('gamepanel').style.backgroundColor = "transparent";
-        document.getElementById('status-panel').style.visibility = "hidden";
         if(locationName === 'house1' || locationName === 'house5' || locationName === 'house9'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background1.jpg')";
+            document.getElementById('person-div').style.gridRowStart = "10";
+            document.getElementById('person-div').style.gridRowEnd = "22";
+            document.getElementById('person-div').style.gridColumnStart = "16";
+            document.getElementById('person-div').style.gridColumnEnd = "23";
         }
         if(locationName === 'house2' || locationName === 'house6' || locationName === 'house10'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background2.jpg')";
+            document.getElementById('person-div').style.gridRowStart = "8";
+            document.getElementById('person-div').style.gridRowEnd = "24";
+            document.getElementById('person-div').style.gridColumnStart = "6";
+            document.getElementById('person-div').style.gridColumnEnd = "15";
         }
         if(locationName === 'house3' || locationName === 'house7' || locationName === 'house11'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background3.png')";
+            document.getElementById('person-div').style.gridRowStart = "8";
+            document.getElementById('person-div').style.gridRowEnd = "24";
+            document.getElementById('person-div').style.gridColumnStart = "6";
+            document.getElementById('person-div').style.gridColumnEnd = "15";
         }
         if(locationName === 'house4' || locationName === 'house8' || locationName === 'house12'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background4.jpg')";
+            document.getElementById('person-div').style.gridRowStart = "10";
+            document.getElementById('person-div').style.gridRowEnd = "26";
+            document.getElementById('person-div').style.gridColumnStart = "20";
+            document.getElementById('person-div').style.gridColumnEnd = "29";
         }
+        document.getElementById('person-div').style.backgroundImage = `url('assets/img/persons/person${housePersonMapping[locationName]}.png')`;
     }
     if(locationName === 'cabanon'){
         // TODO: Knarzende Bretter-Soundeffekt
+        document.getElementById('location-div').style.backgroundImage = "url('assets/img/cabanon_background.png')";
     }
     if(locationName === 'forest'){
         // TODO: Blätterrascheln-Soundeffekt
+        document.getElementById('location-div').style.backgroundImage = "url('assets/img/forest_background.jpg')";
     }
 }
 
@@ -141,3 +166,16 @@ function initializeHouseEventMapping(){
         eventList.splice(randIndex, 1);
     }
 }
+
+function initializePersonHouseMapping(){
+    let houseNameList = ['house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8', 'house9', 'house10', 'house11', 'house12'];
+    let personNumberList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+    for(let house in houseNameList){
+        let randIndex = Math.floor(Math.random() * personNumberList.length);
+        housePersonMapping[houseNameList[house]] = personNumberList[randIndex];
+        personNumberList.splice(randIndex, 1);
+    }
+}
+
+function initializePersonTextMapping(){}

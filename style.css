@@ -276,4 +276,14 @@ html{
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 36;
+    grid-row-start: 1;
+    grid-row-end: 24;
+}
+
+#person-div{
+    background-repeat: no-repeat; 
+    background-size: contain;
 }
