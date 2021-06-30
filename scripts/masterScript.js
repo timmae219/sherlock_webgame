@@ -111,8 +111,12 @@ function handleClickOnLocation(locationName){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background1.jpg')";
             document.getElementById('person-div').style.gridRowStart = "10";
             document.getElementById('person-div').style.gridRowEnd = "22";
-            document.getElementById('person-div').style.gridColumnStart = "16";
-            document.getElementById('person-div').style.gridColumnEnd = "23";
+            document.getElementById('person-div').style.gridColumnStart = "12";
+            document.getElementById('person-div').style.gridColumnEnd = "19";
+            document.getElementById('speechbubble-div').style.gridRowStart = "5";
+            document.getElementById('speechbubble-div').style.gridRowEnd = "12";
+            document.getElementById('speechbubble-div').style.gridColumnStart = "19";
+            document.getElementById('speechbubble-div').style.gridColumnEnd = "30";
         }
         if(locationName === 'house2' || locationName === 'house6' || locationName === 'house10'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background2.jpg')";
@@ -120,6 +124,10 @@ function handleClickOnLocation(locationName){
             document.getElementById('person-div').style.gridRowEnd = "24";
             document.getElementById('person-div').style.gridColumnStart = "6";
             document.getElementById('person-div').style.gridColumnEnd = "15";
+            document.getElementById('speechbubble-div').style.gridRowStart = "3";
+            document.getElementById('speechbubble-div').style.gridRowEnd = "10";
+            document.getElementById('speechbubble-div').style.gridColumnStart = "15";
+            document.getElementById('speechbubble-div').style.gridColumnEnd = "26";
         }
         if(locationName === 'house3' || locationName === 'house7' || locationName === 'house11'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background3.png')";
@@ -127,6 +135,10 @@ function handleClickOnLocation(locationName){
             document.getElementById('person-div').style.gridRowEnd = "24";
             document.getElementById('person-div').style.gridColumnStart = "6";
             document.getElementById('person-div').style.gridColumnEnd = "15";
+            document.getElementById('speechbubble-div').style.gridRowStart = "3";
+            document.getElementById('speechbubble-div').style.gridRowEnd = "10";
+            document.getElementById('speechbubble-div').style.gridColumnStart = "15";
+            document.getElementById('speechbubble-div').style.gridColumnEnd = "26";
         }
         if(locationName === 'house4' || locationName === 'house8' || locationName === 'house12'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background4.jpg')";
@@ -134,6 +146,10 @@ function handleClickOnLocation(locationName){
             document.getElementById('person-div').style.gridRowEnd = "26";
             document.getElementById('person-div').style.gridColumnStart = "20";
             document.getElementById('person-div').style.gridColumnEnd = "29";
+            document.getElementById('speechbubble-div').style.gridRowStart = "5";
+            document.getElementById('speechbubble-div').style.gridRowEnd = "12";
+            document.getElementById('speechbubble-div').style.gridColumnStart = "8";
+            document.getElementById('speechbubble-div').style.gridColumnEnd = "19";
         }
         document.getElementById('person-div').style.backgroundImage = `url('assets/img/persons/person${housePersonMapping[locationName]}.png')`;
     }
@@ -159,12 +175,46 @@ function handleClickOnSolve(){
 function initializeHouseEventMapping(){
     let houseNameList = ['house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8', 'house9', 'house10', 'house11', 'house12'];
     let eventList = ['catch', 'catch', 'shoot', 'shoot', 'hat', 'hat', 'quiz', 'quiz', 'quiz', 'quiz', 'joker', 'joker'];   // joker -> man bekommt den Hinweis direkt
+    let quizList = [1,2,3,4,5,6,7,8];
+    let catchList = [1,2];
+    let hutList = [1,2];
+    let shootList = [1,2];
+    let jokerList = [1,2];
 
     for(let house in houseNameList){
         let randIndex = Math.floor(Math.random() * eventList.length);
-        houseEventMapping[house] = eventList[randIndex];
+        if(eventList[randIndex] === 'quiz'){
+            let randQuizIndex = Math.floor(Math.random() * quizList.length);
+            houseEventMapping[house] = `quiz${quizList[randQuizIndex]}`;
+            quizList.splice(randQuizIndex, 1);
+        }
+        else if(eventList[randIndex] === 'catch'){
+            let randCatchIndex = Math.floor(Math.random() * catchList.length);
+            houseEventMapping[house] = `catch${catchList[randCatchIndex]}`;
+            catchList.splice(randCatchIndex, 1);
+        }
+        else if(eventList[randIndex] === 'hat'){
+            let randHatIndex = Math.floor(Math.random() * hutList.length);
+            houseEventMapping[house] = `hat${hutList[randHatIndex]}`;
+            hutList.splice(randHatIndex, 1);
+        }
+        else if(eventList[randIndex] === 'shoot'){
+            let randShootIndex = Math.floor(Math.random() * shootList.length);
+            houseEventMapping[house] = `shoot${shootList[randShootIndex]}`;
+            shootList.splice(randShootIndex, 1);
+        }
+        else if(eventList[randIndex] === 'joker'){
+            let randJokerIndex = Math.floor(Math.random() * jokerList.length);
+            houseEventMapping[house] = `joker${jokerList[randJokerIndex]}`;
+            jokerList.splice(randJokerIndex, 1);
+        }
+        else{
+            houseEventMapping[house] = eventList[randIndex];
+        }
         eventList.splice(randIndex, 1);
     }
+
+    console.log(houseEventMapping);
 }
 
 function initializePersonHouseMapping(){

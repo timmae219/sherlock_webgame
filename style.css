@@ -287,3 +287,12 @@ html{
     background-repeat: no-repeat; 
     background-size: contain;
 }
+
+#speechbubble-div{
+    padding: 12px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: white;
+    display: inline;
+    border: 4px black double;
+}
