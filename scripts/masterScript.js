@@ -1,7 +1,7 @@
 import ScreenController from "./screenController.js";
 
 import  "./strings.js";
-import { intro_bird, intro_hut_1, intro_hut_2, intro_pig, intro_rätsel_1, intro_rätsel_2, intro_rätsel_3, intro_rätsel_4, intro_rätsel_5, intro_rätsel_6, intro_rätsel_7, intro_rätsel_8, intro_shoot_1, intro_shoot_2, joker_1, joker_2 } from "./strings.js";
+import { rätsel_1 } from "./strings.js";
 
 
 
@@ -189,6 +189,22 @@ const personLabeling = [
         glasses: false,
         accessoired: false
     }    
+];
+
+const quizzes = [
+    {
+        introText: rätsel_1,
+        correctAnswer: 4,
+        answers: [
+            '(A) der grüne und der blaue.',
+            '(B) der grüne und der rote.',
+            '(C) der weiße und der blaue.',
+            '(D) der grüne und der weiße.',
+            '(E) der rote und der blaue.'
+        ],
+        successSentence: '',
+        failSentence: '',
+    }
 ];
 
 // Zuordnung von Events/Rätseln/Spielen zu den Häusern (Wald und Cabanon sind fixe Events!)
