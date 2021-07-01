@@ -144,10 +144,6 @@ html{
     background-color: white;
     overflow: visible;
     display: grid;
-    grid-column-start: 1;
-    grid-column-end: 6;
-    grid-row-start: 1;
-    grid-row-end: 4;
     gap: 5px;
     padding: 10px;
 }
@@ -559,6 +555,20 @@ html{
     background-size: contain;
 }
 
+#overlay-back-button-candidates{
+    grid-row-start: 5;
+    grid-row-end: 5;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
+#overlay-back-button-murderer{
+    grid-row-start: 5;
+    grid-row-end: 5;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
 #murderer-1{
     grid-row-start: 1;
     grid-row-end: 1;
@@ -776,3 +786,17 @@ html{
     background-size: contain;
 }
 
+#winning-panel{
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#fail-panel{
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#easteregg{
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

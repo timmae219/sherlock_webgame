@@ -1,7 +1,20 @@
 import ScreenController from "./screenController.js";
 
-import  "./strings.js";
-import { rätsel_1, rätsel_1_Antwort, rätsel_1_falsch, rätsel_2, rätsel_2_Antwort, rätsel_2_falsch, rätsel_3, rätsel_3_Antwort, rätsel_3_falsch, rätsel_4, rätsel_4_Antwort, rätsel_4_falsch, rätsel_5, rätsel_5_Antwort, rätsel_5_falsch, rätsel_6, rätsel_6_Antwort, rätsel_7, rätsel_7_Antwort, rätsel_7_falsch, rätsel_8, rätsel_8_Antwort, rätsel_8_falsch } from "./strings.js";
+import {introText1, introText2, introText3, introText4,
+    intro_rätsel_1,rätsel_1,rätsel_1_Möglichkeiten,rätsel_1_Lösung,rätsel_1_Antwort, rätsel_1_falsch,
+    intro_rätsel_2,rätsel_2,rätsel_2_Möglichkeiten,rätsel_2_Lösung,rätsel_2_Antwort, rätsel_2_falsch,
+    intro_rätsel_3,rätsel_3,rätsel_3_Möglichkeiten,rätsel_3_Lösung,rätsel_3_Antwort, rätsel_3_falsch,
+    intro_rätsel_4,rätsel_4,rätsel_4_Möglichkeiten,rätsel_4_Lösung,rätsel_4_Antwort, rätsel_4_falsch,
+    intro_rätsel_5,rätsel_5,rätsel_5_Möglichkeiten,rätsel_5_Lösung,rätsel_5_Antwort, rätsel_5_falsch,
+    intro_rätsel_6,rätsel_6,rätsel_6_Möglichkeiten,rätsel_6_Lösung,rätsel_6_Antwort, rätsel_6_falsch,
+    intro_rätsel_7,rätsel_7,rätsel_7_Möglichkeiten,rätsel_7_Lösung,rätsel_7_Antwort, rätsel_7_falsch,
+    intro_rätsel_8,rätsel_8,rätsel_8_Möglichkeiten,rätsel_8_Lösung,rätsel_8_Antwort, rätsel_8_falsch,
+    intro_pig, pig_catch, pig_fail,
+    intro_hut_1, hut_1_win_1, hut_1_win_2, hut_1_win_3, hut_1_fail,
+    intro_hut_2, hut_2_win_1, hut_2_win_2, hut_2_win_3, hut_2_fail,
+    intro_shoot_1, shoot_1_win, shoot_1_fail,
+    intro_shoot_2, shoot_2_win, shoot_2_fail,
+    intro_bird, bird_win, bird_fail, genericHint, joker_1, joker_2} from "./strings.js";
 
 
 
@@ -304,16 +317,42 @@ var houseEventMapping = {};
 
 var housePersonMapping = {};
 
+var murderer;
+
 // 24 bool-Werte, die signalisieren, ob eine Person als unschuldig markiert wurde, oder nicht
 var personSelectionArray = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+
+var alreadyVisitedMapping = {
+    'house1':false,
+    'house2':false,
+    'house3':false,
+    'house4':false,
+    'house5':false,
+    'house6':false,
+    'house7':false,
+    'house8':false,
+    'house9':false,
+    'house10':false,
+    'house11':false,
+    'house12':false,
+    'cabanon': false,
+    'forest': false
+};
 
 /*
     Spiel-Kontrollfluss
 */
 //handleIntroScreen();
 gotoMainScreen();
+initializeMurderer();
 initializeHouseEventMapping();
 initializePersonHouseMapping();
+
+function initializeMurderer(){
+    let randIndex = Math.floor(Math.random() * personSelectionArray.length);
+    murderer = randIndex;
+    console.log(`MURDERER: ${murderer}`);
+}
 
 // Diese Funktion setzt den Content, der im Panel angezeigt werden soll
 function setGamePanelContent(screenName){
@@ -349,6 +388,7 @@ function setGamePanelContent(screenName){
         document.getElementById('status-panel').style.visibility = "visible";
         document.getElementById('status-panel').innerHTML = "Wähle einen Ort aus";
         document.getElementById('candidates-overlay').style.visibility = "hidden";
+        document.getElementById('solve-overlay').style.visibility = "hidden";
         document.getElementById('main-map-house1').onclick = function(){handleClickOnLocation('house1');};
         document.getElementById('main-map-house2').onclick = function(){handleClickOnLocation('house2');};
         document.getElementById('main-map-house3').onclick = function(){handleClickOnLocation('house3');};
@@ -431,7 +471,11 @@ function handleClickOnLocation(locationName){
             document.getElementById('speechbubble-div').style.gridColumnEnd = "19";
         }
         document.getElementById('person-div').style.backgroundImage = `url('assets/img/persons/person${housePersonMapping[locationName]}.png')`;
-        document.getElementById('speechbubble-div').innerHTML = `${getIntroText(houseEventMapping[locationName])}</br><button>OK</button>`;
+        document.getElementById('speechbubble-div').innerHTML = `${getIntroText(houseEventMapping[locationName])}</br><button id="start-event-button">OK</button>`;
+        document.getElementById('start-event-button').onclick = function(){
+            handleEvent(houseEventMapping[locationName]);
+            document.getElementById('gamepanel').style.backgroundColor = "burlywood";
+        };
     }
     if(locationName === 'cabanon'){
         // TODO: Knarzende Bretter-Soundeffekt
@@ -447,6 +491,7 @@ function handleClickOnLocation(locationName){
 
 function handleClickOnBackToMap(){
     document.getElementById('candidates-overlay').style.visibility = "hidden";
+    document.getElementById('solve-overlay').style.visibility = "hidden";
     document.getElementById('status-panel').style.visibility = "visible";
     document.getElementById('main-map-house1').style.visibility = "visible";
     document.getElementById('main-map-house2').style.visibility = "visible";
@@ -486,6 +531,8 @@ function handleClickOnShowCandidates(){
     document.getElementById('main-map-show-candidates-button').style.visibility = "hidden";
     document.getElementById('main-map-solve-button').style.visibility = "hidden";
 
+    document.getElementById('overlay-back-button-candidates').onclick = function(){handleClickOnBackToMap();};
+
     for(let i in personSelectionArray){
         let id = `candidate-${Number(i) + 1}`;
         console.log(id);
@@ -495,7 +542,77 @@ function handleClickOnShowCandidates(){
 }
 
 function handleClickOnSolve(){
-    alert(`Du hast auf "Fall lösen" geklickt!`);
+    document.getElementById('solve-overlay').style.visibility = "visible";
+    document.getElementById('status-panel').style.visibility = "hidden";
+    document.getElementById('main-map-house1').style.visibility = "hidden";
+    document.getElementById('main-map-house2').style.visibility = "hidden";
+    document.getElementById('main-map-house3').style.visibility = "hidden";
+    document.getElementById('main-map-house4').style.visibility = "hidden";
+    document.getElementById('main-map-house5').style.visibility = "hidden";
+    document.getElementById('main-map-house6').style.visibility = "hidden";
+    document.getElementById('main-map-house7').style.visibility = "hidden";
+    document.getElementById('main-map-house8').style.visibility = "hidden";
+    document.getElementById('main-map-house9').style.visibility = "hidden";
+    document.getElementById('main-map-house10').style.visibility = "hidden";
+    document.getElementById('main-map-house11').style.visibility = "hidden";
+    document.getElementById('main-map-house12').style.visibility = "hidden";
+    document.getElementById('main-map-cabanon').style.visibility = "hidden";
+    document.getElementById('main-map-forest').style.visibility = "hidden";
+    document.getElementById('main-map-show-candidates-button').style.visibility = "hidden";
+    document.getElementById('main-map-solve-button').style.visibility = "hidden";
+
+    document.getElementById('overlay-back-button-murderer').onclick = function(){handleClickOnBackToMap();};
+
+    for(let i in personSelectionArray){
+        let id = `murderer-${Number(i) + 1}`;
+        if(personSelectionArray[i] === true){
+            document.getElementById(id).onclick = function(){alert('Du kannst diese Person nicht zum Täter erklären, da du sie als unschuldig markiert hast!');};
+        }else{
+            document.getElementById(id).onclick = function(){guiltPerson(i);};
+        }
+    }
+    alert("Wähle die Person aus, die die Tat begangen hat, um sie ins Gefängnis zu stecken!");
+}
+
+function handleEvent(eventName){
+    switch(eventName){
+        case 'quiz1':
+            setGamePanelContent('easteregg');
+        case 'quiz2':
+            setGamePanelContent('easteregg');
+        case 'quiz3':
+            setGamePanelContent('easteregg');
+        case 'quiz4':
+            setGamePanelContent('easteregg');
+        case 'quiz5':
+            setGamePanelContent('easteregg');
+        case 'quiz6':
+            setGamePanelContent('easteregg');
+        case 'quiz7':
+            setGamePanelContent('easteregg');  
+        case 'quiz8':
+            setGamePanelContent('easteregg');
+        case 'catch1':
+            setGamePanelContent('easteregg');
+        case 'catch2':
+            setGamePanelContent('easteregg');   
+        case 'hat1':
+            setGamePanelContent('easteregg');
+        case 'hat2':
+            setGamePanelContent('easteregg');       
+        case 'shoot1':
+            setGamePanelContent('easteregg');
+        case 'shoot2':
+            setGamePanelContent('easteregg');
+        case 'joker1':
+            setGamePanelContent('easteregg');
+        case 'joker2':
+            setGamePanelContent('easteregg');        
+        case 'cabanon':
+            setGamePanelContent('easteregg');       
+        case 'forest':
+            setGamePanelContent('easteregg');    
+    }
 }
 
 // Diese Funktion ordnet den Gebäuden zugehörige Events zu (jede Runde anders!) 
@@ -560,8 +677,8 @@ function togglePersonSelection(personNumber){
     if(personSelectionArray[personNumber] === true){
         personSelectionArray[personNumber] = false;
         document.getElementById(`candidate-${Number(personNumber) + 1}`).innerHTML = "";
-        //document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = "";
-        //document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){guiltPerson(personNumber);};
+        document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = "";
+        document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){guiltPerson(personNumber);};
     }else{
         personSelectionArray[personNumber] = true;
         if(personSelectionArray.every((e) => e === true)){
@@ -569,14 +686,20 @@ function togglePersonSelection(personNumber){
             personSelectionArray[personNumber] = false;
         }else{
             document.getElementById(`candidate-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
-            //document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
-            //document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){alert('Du hast diese Person als unschuldig markiert, du kannst sie nicht als Täter markieren!');};
+            document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
+            document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){alert('Du hast diese Person als unschuldig markiert, du kannst sie nicht als Täter markieren!');};
         }
     }
     console.log(personSelectionArray);
 }
 
-function guiltPerson(personNumber){}
+function guiltPerson(personNumber){
+    if(personNumber == murderer){
+        setGamePanelContent("win");
+    }else{
+        setGamePanelContent("fail");
+    }
+}
 
 function getIntroText(event){
     switch(event){

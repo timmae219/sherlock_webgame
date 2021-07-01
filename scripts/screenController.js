@@ -13,6 +13,12 @@ export default class ScreenController{
                 return this.getRawHtml("./screens/location/location_screen.html"); 
             case 'game':
                 return this.getRawHtml("./screens/game/game_screen.html");       
+            case 'win':
+                return this.getRawHtml("./screens/end/success.html");    
+            case 'fail':
+                return this.getRawHtml("./screens/end/fail.html");        
+            case 'easteregg':
+                return this.getRawHtml("./screens/game/easteregg.html");            
         }
     }
 
