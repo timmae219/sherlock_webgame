@@ -58,7 +58,7 @@ const rätsel_7_Antwort = "Ja stimmt, genauso war es. Vielen Dank.";
 const rätsel_7_falsch = "Nein, nein. Das glaube ich nicht. Ach, ich erinnere mich an nichts mehr. Ich kann dir leider nicht helfen.";
 
 const intro_rätsel_8 = "Hey hallo. Man nennt mich das Mathe-Genie hier im Dorf. Ich helfe dir gerne, doch zuerst musst du dich als würdig erweisen. Löse diese Matheaufgabe und ich sage dir, was ich weiß.";
-const rätsel_8 = "Und wazr geht die Aufgabe so: Jedes von 5 Kinder wählt eine Zahlen 1,2 oder 4. Dann multiplizieren die Fünf ihre 5 Zahlen. Von den folgenden Zahlen kann nur eine das Produkt sein, welche?";
+const rätsel_8 = "Und zwar geht die Aufgabe so: Jedes von 5 Kinder wählt eine Zahlen 1,2 oder 4. Dann multiplizieren die Fünf ihre 5 Zahlen. Von den folgenden Zahlen kann nur eine das Produkt sein, welche?";
 const rätsel_8_Möglichkeiten = "(A) 100, (B) 256, (C) 768, (D) 2048, (E) 4096";
 const rätsel_8_Lösung = "B";
 const rätsel_8_Antwort = "Oha, das ist richtig. Du bist wohl auch ein Mathe-Genie. Nun gut, ich erzähle dir alles.";
@@ -71,25 +71,25 @@ const pig_fail = "Oh nein. Mein Schweinchen ist wohl für immer weg.";
 const intro_hut_1 = "Hehe, komm ruhig näher. Die Leute sagen, ich sei ein Gauner und Betrüger. Ich verpfeife keinen Verbrecherkollegen. Falls du jedoch mein Hütchenspiel gewinnst, bin ich vielleicht gewillt dir doch etwas zu sagen. Jedoch muss ich dir sagen, dass noch niemand mein Spiel gewonnen hat, muhahahahahaha.";
 const hut_1_win_1 = "Glückstreffer!";
 const hut_1_win_2 = "Na schön, jetzt mache ich ernst!";
-const hut_1_win_3 = "Ahhh grrh. Das hat noch niemand geschafft. Du musst mich betrogen haben! Aber nun gut, versprochen ist versprochen. Ich habe eine Person mit + gesehen";
+const hut_1_win_3 = "Ahhh grrh. Das hat noch niemand geschafft. Du musst mich betrogen haben! Aber nun gut, versprochen ist versprochen.";
 const hut_1_fail = "Hahahaha, ich sagte es doch. NIEMAND gewinnt mein Spiel.";
 
 const intro_hut_2 = "Hey! Komm her, ich will dir was zeigen. Achso ich soll dir was erzählen? Na gut, aber nur wenn wir eine kleine Runde spielen und du gewinnst.";
 const hut_2_win_1 = "Wow, nicht schlecht Herr Specht.";
 const hut_2_win_2 = "Du scheinst das schon häufiger gespielt zu haben.";
-const hut_2_win_3 = "Donnerlittchen! Das war eine beeindruckende Leistung. Ich erzähle dir nun alles. Ich meine, dass der Mord von einer Person mit + verübt wurde.";
+const hut_2_win_3 = "Donnerlittchen! Das war eine beeindruckende Leistung. Ich erzähle dir nun alles.";
 const hut_2_fail = "Kein Glück im Spiel, aber vielleicht ja in der Liebe. Tja, so läufts nun mal beim Glücksspiel. Mal gewinnt man und mal verliert man.";
 
 const intro_shoot_1 = "Howdy! Ja klar helfe ich dir, doch zuerst muss du zeigen, wie gut du mit dem Gewehr umgehen kannst.";
-const shoot_1_win = "Respekt, Meister. Das war ja brutal. Also gut ich sage, was ich weiß. Ich habe ein Person mit + gesehen.";
+const shoot_1_win = "Respekt, Meister. Das war ja brutal.";
 const shoot_1_fail = "Hast du etwa einen Knick in der Optik? Das geht aber besser. Einem so schlechten Schützen kann ich leider nicht erzählen."; 
 
 const intro_shoot_2 = "Grüß Gott! Ich bin der bester Schütze weit und breit. Zeige mir dein Talent und ich plaudere ein bisschen aus dem Nähkästchen über den Mord.";
-const shoot_2_win = "Wow! Das hätte ich nicht erwartet. Nun gut, ich spreche. Ich habe eine Person mit + gesehen.";
+const shoot_2_win = "Wow! Das hätte ich nicht erwartet. Nun gut, ich spreche.";
 const shoot_2_fail = "Naja, ich schlage vor du übst noch ein bisschen.";
 
 const intro_bird = "Grüß dich! Wie? Ich soll dir was über den Mord erzählen? Klar gerne, doch bitte fang zuerst meinen Hansi ein. Er ist schon wieder aus dem Käfig ausgebrochen.";
-const bird_win = "Klasse du hast ihn. Vielen Dank. Also, ich habe eine Person mit + gesehen.";
+const bird_win = "Klasse du hast ihn. Vielen Dank.";
 const bird_fail = "Er ist wirklich nicht leicht zu fangen, oder? Nun ja dann muss ich es wohl wieder selber machen. Ich habe jetzt keine Zeit für dich";
 
 const joker_1 = "Moin! Du hast Glück, denn ich habe etwas gesehen und werde es dir, ohne eine Gegenleistung dafür zu verlangen, verraten!";

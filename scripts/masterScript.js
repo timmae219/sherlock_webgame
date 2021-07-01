@@ -36,6 +36,7 @@ var screenController = new ScreenController('main');
 const personLabeling = [
     {   //Thomas
         hairColor: "green",
+        hairLength: "normal",
         older: false,
         hat: false,
         glasses: false,
@@ -43,6 +44,7 @@ const personLabeling = [
     },
     {   //Oliver
         hairColor: "blonde",
+        hairLength: "long",
         older: false,
         hat: true,
         glasses: false,
@@ -50,6 +52,7 @@ const personLabeling = [
     },
     {   //Peter
         hairColor: "brown",
+        hairLength: "long",
         older: false,
         hat: false,
         glasses: false,
@@ -57,6 +60,7 @@ const personLabeling = [
     },
     {   //Klaus
         hairColor: "brown",
+        hairLength: "normal",
         older: true,
         hat: false,
         glasses: true,
@@ -64,6 +68,7 @@ const personLabeling = [
     },
     {   //David
         hairColor: "blond",
+        hairLength: "long",
         older: false,
         hat: false,
         glasses: false,
@@ -71,6 +76,7 @@ const personLabeling = [
     },
     {   //Albert
         hairColor: "black",
+        hairLength: "normal",
         older: false,
         hat: false,
         glasses: false,
@@ -78,6 +84,7 @@ const personLabeling = [
     },
     {   //Philip
         hairColor: "black",
+        hairLength: "normal",
         older: true,
         hat: true,
         glasses: false,
@@ -85,6 +92,7 @@ const personLabeling = [
     },
     {   //Ingrid
         hairColor: "brown",
+        hairLength: "long",
         older: true,
         hat: true,
         glasses: true,
@@ -92,6 +100,7 @@ const personLabeling = [
     },
     {   //Hannes
         hairColor: "black",
+        hairLength: "short",
         older: true,
         hat: false,
         glasses: false,
@@ -99,6 +108,7 @@ const personLabeling = [
     },
     {   //Simone
         hairColor: "red",
+        hairLength: "normal",
         older: false,
         hat: false,
         glasses: true,
@@ -106,6 +116,7 @@ const personLabeling = [
     },
     {   //Ute
         hairColor: "blond",
+        hairLength: "long",
         older: false,
         hat: false,
         glasses: false,
@@ -113,6 +124,7 @@ const personLabeling = [
     },
     {   //Michael
         hairColor: "white",
+        hairLength: "normal",
         older: true,
         hat: false,
         glasses: true,
@@ -120,6 +132,7 @@ const personLabeling = [
     },
     {   //Tina
         hairColor: "blond",
+        hairLength: "normal",
         older: false,
         hat: false,
         glasses: false,
@@ -127,6 +140,7 @@ const personLabeling = [
     },
     {   //Stefan
         hairColor: "white",
+        hairLength: "short",
         older: true,
         hat: false,
         glasses: false,
@@ -134,6 +148,7 @@ const personLabeling = [
     },
     {   //Elke
         hairColor: "black",
+        hairLength: "short",
         older: true,
         hat: false,
         glasses: true,
@@ -141,6 +156,7 @@ const personLabeling = [
     },
     {   //Katrin
         hairColor: "blond",
+        hairLength: "short",
         older: false,
         hat: false,
         glasses: false,
@@ -148,6 +164,7 @@ const personLabeling = [
     },
     {   //Doris
         hairColor: "red",
+        hairLength: "normal",
         older: false,
         hat: false,
         glasses: false,
@@ -155,6 +172,7 @@ const personLabeling = [
     },
     {   //Andreas
         hairColor: "white",
+        hairLength: "normal",
         older: true,
         hat: false,
         glasses: true,
@@ -162,6 +180,7 @@ const personLabeling = [
     },
     {   //Tobias
         hairColor: "black",
+        hairLength: "long",
         older: false,
         hat: false,
         glasses: true,
@@ -169,6 +188,7 @@ const personLabeling = [
     },
     {   //Manfred
         hairColor: "white",
+        hairLength: "short",
         older: true,
         hat: false,
         glasses: true,
@@ -176,6 +196,7 @@ const personLabeling = [
     },
     {   //Markus
         hairColor: "white",
+        hairLength: "short",
         older: true,
         hat: false,
         glasses: false,
@@ -183,6 +204,7 @@ const personLabeling = [
     },
     {   //Jörg
         hairColor: "brown",
+        hairLength: "normal",
         older: false,
         hat: true,
         glasses: false,
@@ -190,6 +212,7 @@ const personLabeling = [
     },
     {   //Patrick
         hairColor: "brown",
+        hairLength: "normal",
         older: false,
         hat: true,
         glasses: false,
@@ -197,6 +220,7 @@ const personLabeling = [
     },
     {   //Alfred
         hairColor: "red",
+        hairLength: "normal",
         older: true,
         hat: false,
         glasses: false,
@@ -319,6 +343,8 @@ var housePersonMapping = {};
 
 var murderer;
 
+var currentlySelectedLocation;
+
 // 24 bool-Werte, die signalisieren, ob eine Person als unschuldig markiert wurde, oder nicht
 var personSelectionArray = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 
@@ -339,6 +365,8 @@ var alreadyVisitedMapping = {
     'forest': false
 };
 
+var hints = [];
+
 /*
     Spiel-Kontrollfluss
 */
@@ -347,11 +375,55 @@ gotoMainScreen();
 initializeMurderer();
 initializeHouseEventMapping();
 initializePersonHouseMapping();
+initializeHints();
 
 function initializeMurderer(){
     let randIndex = Math.floor(Math.random() * personSelectionArray.length);
     murderer = randIndex;
     console.log(`MURDERER: ${murderer}`);
+}
+
+function initializeHints(){
+    let hairColors = ["green", "blonde", "brown", "black", "red", "white"].filter((element) => element !== personLabeling[murderer].hairColor);
+    let hairLengths = ["short", "normal", "long"].filter((element) => element !== personLabeling[murderer].hairLength);
+    let notOlder = !personLabeling[murderer].older;
+    let notHat = !personLabeling[murderer].hat;
+    let notGlasses = !personLabeling[murderer].glasses;
+    let notAccessoire = !personLabeling[murderer].accessoire;
+
+    hairColors.forEach((hairColor) => {
+        if(hairColor == "green"){hints = hints.concat(['grüne Haare']);}
+        if(hairColor == "blonde"){hints = hints.concat(['blonde Haare']);}
+        if(hairColor == "brown"){hints = hints.concat(['braune Haare']);}
+        if(hairColor == "black"){hints = hints.concat(['schwarze Haare']);}
+        if(hairColor == "red"){hints = hints.concat(['rote Haare']);}
+        if(hairColor == "white"){hints = hints.concat(['weiße Haare']);}
+    });
+
+    hairLengths.forEach((hairLength) => {
+        if(hairLength == "short"){hints = hints.concat(['für ihr Geschlecht kurze Haare']);}
+        if(hairLength == "normal"){hints = hints.concat(['für ihr Geschlecht eine normale Haarlänge']);}
+        if(hairLength == "short"){hints = hints.concat(['für ihr Geschlecht lange Haare']);}
+    });
+
+    hints = hints.concat(notOlder ? ['höheres Alter'] : ['jüngeres Alter']);
+    hints = hints.concat(notHat ? ['trug eine Kopfbedeckung'] : ['trug keine Kopfbedeckung']);
+    hints = hints.concat(notGlasses ? ['trug eine Sehhilfe'] : ['trug keine Sehhilfe']);
+    hints = hints.concat(notAccessoire ? ['trug Schmuck/Accesoires'] : ['trug keinen Schmuck/Accesoires']);
+
+    shuffle(hints);
+    console.log(hints);
+}
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
 }
 
 // Diese Funktion setzt den Content, der im Panel angezeigt werden soll
@@ -389,6 +461,13 @@ function setGamePanelContent(screenName){
         document.getElementById('status-panel').innerHTML = "Wähle einen Ort aus";
         document.getElementById('candidates-overlay').style.visibility = "hidden";
         document.getElementById('solve-overlay').style.visibility = "hidden";
+
+        for(let location in alreadyVisitedMapping){
+            if(alreadyVisitedMapping[location] === true){
+                document.getElementById(`main-map-${location}`).innerHTML = `<img src="/assets/img/haken.png" id="overlay-mark">`;
+            }
+        }
+
         document.getElementById('main-map-house1').onclick = function(){handleClickOnLocation('house1');};
         document.getElementById('main-map-house2').onclick = function(){handleClickOnLocation('house2');};
         document.getElementById('main-map-house3').onclick = function(){handleClickOnLocation('house3');};
@@ -406,6 +485,21 @@ function setGamePanelContent(screenName){
         document.getElementById('main-map-show-candidates-button').onclick = handleClickOnShowCandidates;
         document.getElementById('main-map-solve-button').onclick = handleClickOnSolve;
     }
+    if(screenName === 'easteregg'){
+        document.getElementById('confirm-button').onclick = function(){
+            setGamePanelContent('main');
+            handleClickOnLocation(currentlySelectedLocation);
+            let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
+            textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
+            textToDisplay = textToDisplay.concat(hints[0]);
+            hints.shift();
+            document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
+            document.getElementById('back-to-map-button').onclick = function(){
+                alreadyVisitedMapping[currentlySelectedLocation] = true;
+                setGamePanelContent('main');
+            };
+        };
+    }
 }
 
 function handleIntroScreen(){
@@ -422,6 +516,12 @@ function handleClickOnLocation(locationName){
     setGamePanelContent("location");
     document.getElementById('gamepanel').style.backgroundColor = "transparent";
     document.getElementById('status-panel').style.visibility = "hidden";
+    currentlySelectedLocation = locationName;
+    if(alreadyVisitedMapping[locationName] === true){
+        alert('Du hast diesen Ort bereits besucht!');
+        setGamePanelContent('main');
+        return;
+    }
     if(locationName.includes('house')){
         let effect = new Audio('../assets/audio/opening_door_sound_effect.mp3');
         effect.play();
@@ -737,3 +837,42 @@ function getIntroText(event){
             return joker_2;                        
     }
 }
+
+function getSuccessText(event){
+    switch(event){
+        case 'quiz1':
+            return rätsel_1_Antwort;
+        case 'quiz2':
+            return rätsel_2_Antwort;
+        case 'quiz3':
+            return rätsel_3_Antwort;
+        case 'quiz4':
+            return rätsel_4_Antwort;
+        case 'quiz5':
+            return rätsel_5_Antwort;
+        case 'quiz6':
+            return rätsel_6_Antwort;
+        case 'quiz7':
+            return rätsel_7_Antwort;
+        case 'quiz8':
+            return rätsel_8_Antwort;
+        case 'catch1':
+            return pig_catch;
+        case 'catch2':
+            return bird_win;    
+        case 'hat1':
+            return hut_1_win_3;
+        case 'hat2':
+            return hut_2_win_3
+        case 'shoot1':
+            return shoot_1_win;
+        case 'shoot2':
+            return shoot_2_win;
+        case 'joker1':
+            return '';
+        case 'joker2':
+            return '';                        
+    }
+}
+
+function getFailText(event){}
