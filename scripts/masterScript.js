@@ -1,7 +1,7 @@
 import ScreenController from "./screenController.js";
 
 import  "./strings.js";
-import { rätsel_1 } from "./strings.js";
+import { rätsel_1, rätsel_1_Antwort, rätsel_1_falsch, rätsel_2, rätsel_2_Antwort, rätsel_2_falsch, rätsel_3, rätsel_3_Antwort, rätsel_3_falsch, rätsel_4, rätsel_4_Antwort, rätsel_4_falsch, rätsel_5, rätsel_5_Antwort, rätsel_5_falsch, rätsel_6, rätsel_6_Antwort, rätsel_7, rätsel_7_Antwort, rätsel_7_falsch, rätsel_8, rätsel_8_Antwort, rätsel_8_falsch } from "./strings.js";
 
 
 
@@ -26,168 +26,168 @@ const personLabeling = [
         older: false,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Oliver
         hairColor: "blonde",
         older: false,
         hat: true,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Peter
         hairColor: "brown",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Klaus
         hairColor: "brown",
         older: true,
         hat: false,
         glasses: true,
-        accessoired: false
+        accessoire: false
     },
     {   //David
         hairColor: "blond",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Albert
         hairColor: "black",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: true
+        accessoire: true
     },
     {   //Philip
         hairColor: "black",
         older: true,
         hat: true,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Ingrid
         hairColor: "brown",
         older: true,
         hat: true,
         glasses: true,
-        accessoired: true
+        accessoire: true
     },
     {   //Hannes
         hairColor: "black",
         older: true,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Simone
         hairColor: "red",
         older: false,
         hat: false,
         glasses: true,
-        accessoired: true
+        accessoire: true
     },
     {   //Ute
         hairColor: "blond",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: true
+        accessoire: true
     },
     {   //Michael
         hairColor: "white",
         older: true,
         hat: false,
         glasses: true,
-        accessoired: false
+        accessoire: false
     },
     {   //Tina
         hairColor: "blond",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: true
+        accessoire: true
     },
     {   //Stefan
         hairColor: "white",
         older: true,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Elke
         hairColor: "black",
         older: true,
         hat: false,
         glasses: true,
-        accessoired: true
+        accessoire: true
     },
     {   //Katrin
         hairColor: "blond",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: true
+        accessoire: true
     },
     {   //Doris
         hairColor: "red",
         older: false,
         hat: false,
         glasses: false,
-        accessoired: true
+        accessoire: true
     },
     {   //Andreas
         hairColor: "white",
         older: true,
         hat: false,
         glasses: true,
-        accessoired: false
+        accessoire: false
     },
     {   //Tobias
         hairColor: "black",
         older: false,
         hat: false,
         glasses: true,
-        accessoired: false
+        accessoire: false
     },
     {   //Manfred
         hairColor: "white",
         older: true,
         hat: false,
         glasses: true,
-        accessoired: false
+        accessoire: false
     },
     {   //Markus
         hairColor: "white",
         older: true,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Jörg
         hairColor: "brown",
         older: false,
         hat: true,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Patrick
         hairColor: "brown",
         older: false,
         hat: true,
         glasses: false,
-        accessoired: false
+        accessoire: false
     },
     {   //Alfred
         hairColor: "red",
         older: true,
         hat: false,
         glasses: false,
-        accessoired: false
+        accessoire: false
     }    
 ];
 
@@ -202,9 +202,101 @@ const quizzes = [
             '(D) der grüne und der weiße.',
             '(E) der rote und der blaue.'
         ],
-        successSentence: '',
-        failSentence: '',
+        successSentence: rätsel_1_Antwort,
+        failSentence: rätsel_1_falsch
+    },
+    {
+        introText: rätsel_2,
+        correctAnswer: 3,
+        answers: [
+            '(A) Elektriker',
+            '(B) Klempner',
+            '(C) Maler',
+            '(D) Fliesenleger',
+            '(E) Das ist nicht eindeutig bestimmt'
+        ],
+        successSentence: rätsel_2_Antwort,
+        failSentence: rätsel_2_falsch
+    },
+    {
+        introText: rätsel_3,
+        correctAnswer: 0,
+       
+        answers: [
+            '(A) 25 % von 16',
+            '(B) 18 % von 20',
+            '(C) 15 % von 26',
+            '(D) 10 % von 30',
+            '(E) 36 % von 12'
+        ],
+        successSentence: rätsel_3_Antwort,
+        failSentence: rätsel_3_falsch
+    },
+    {
+        introText: rätsel_4,
+        correctAnswer: 1,
+        answers: [
+            '(A) Dwarf',
+            '(B) Knarf',
+            '(C) Raawf',
+            '(D) Drowf'
+        ],
+        successSentence: rätsel_4_Antwort,
+        failSentence: rätsel_4_falsch
+    },
+    {
+        introText: rätsel_5,
+        correctAnswer: 1,
+        answers: [
+            '(A) genau 4 Dienstage',
+            '(B) genau 4 Mittwoche',
+            '(C) 5 Donnerstage',
+            '(D) 5 Freitage',
+            '(E) 5 Samstage'
+        ],
+        successSentence: rätsel_5_Antwort,
+        failSentence: rätsel_5_falsch
+    },
+    {
+        introText: rätsel_6,
+        correctAnswer: 2,
+        answers: [
+            '(A) 11',
+            '(B) 12',
+            '(C) 8',
+            '(D) 13',
+            '(E) 9'
+        ],
+        successSentence: rätsel_6_Antwort,
+        failSentence: rätsel_6_Antwort
+    },
+    {
+        introText: rätsel_7,
+        correctAnswer: 4,
+        answers: [
+            '(A) als Letzter',
+            '(B) als Vierter',
+            '(C) als Dritter',
+            '(D) als Zweiter',
+            '(E) als Erster'
+        ],
+        successSentence: rätsel_7_Antwort,
+        failSentence: rätsel_7_falsch
+    },
+    {
+        introText: rätsel_8,
+        correctAnswer: 1,
+        answers: [
+            '(A) 100',
+            '(B) 256',
+            '(C) 768',
+            '(D) 2048',
+            '(E) 4096'
+        ],
+        successSentence: rätsel_8_Antwort,
+        failSentence: rätsel_8_falsch
     }
+    
 ];
 
 // Zuordnung von Events/Rätseln/Spielen zu den Häusern (Wald und Cabanon sind fixe Events!)
