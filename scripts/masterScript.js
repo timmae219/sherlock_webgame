@@ -343,6 +343,8 @@ var housePersonMapping = {};
 
 var murderer;
 
+var remainingHours = 7;
+
 var currentlySelectedLocation;
 
 // 24 bool-Werte, die signalisieren, ob eine Person als unschuldig markiert wurde, oder nicht
@@ -457,6 +459,8 @@ function setGamePanelContent(screenName){
         };
     }
     if(screenName === 'main'){
+        document.getElementById('clock-div').style.backgroundImage = `url("assets/img/clock/clock_${remainingHours}.png")`;
+
         document.getElementById('status-panel').style.visibility = "visible";
         document.getElementById('status-panel').innerHTML = "Wähle einen Ort aus";
         document.getElementById('candidates-overlay').style.visibility = "hidden";
@@ -496,6 +500,7 @@ function setGamePanelContent(screenName){
             document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
             document.getElementById('back-to-map-button').onclick = function(){
                 alreadyVisitedMapping[currentlySelectedLocation] = true;
+                remainingHours -= 1;
                 setGamePanelContent('main');
             };
         };
@@ -513,6 +518,11 @@ function gotoMainScreen(){
 }
 
 function handleClickOnLocation(locationName){
+    if(remainingHours <= 0){
+        alert('Du hast keine Zeit mehr übrig, du musst den Täter jetzt schnell fassen!');
+        setGamePanelContent('main');
+        return;
+    }
     setGamePanelContent("location");
     document.getElementById('gamepanel').style.backgroundColor = "transparent";
     document.getElementById('status-panel').style.visibility = "hidden";
@@ -875,4 +885,35 @@ function getSuccessText(event){
     }
 }
 
-function getFailText(event){}
+function getFailText(event){
+    switch(event){
+        case 'quiz1':
+            return rätsel_1_falsch;
+        case 'quiz2':
+            return rätsel_2_falsch;
+        case 'quiz3':
+            return rätsel_3_falsch;
+        case 'quiz4':
+            return rätsel_4_falsch;
+        case 'quiz5':
+            return rätsel_5_falsch;
+        case 'quiz6':
+            return rätsel_6_falsch;
+        case 'quiz7':
+            return rätsel_7_falsch;
+        case 'quiz8':
+            return rätsel_8_falsch;
+        case 'catch1':
+            return pig_fail;
+        case 'catch2':
+            return bird_fail;    
+        case 'hat1':
+            return hut_1_fail;
+        case 'hat2':
+            return hut_2_fail
+        case 'shoot1':
+            return shoot_1_fail;
+        case 'shoot2':
+            return shoot_2_fail;                        
+    }
+}
