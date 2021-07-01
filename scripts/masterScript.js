@@ -292,14 +292,20 @@ function togglePersonSelection(personNumber){
     if(personSelectionArray[personNumber] === true){
         personSelectionArray[personNumber] = false;
         document.getElementById(`candidate-${Number(personNumber) + 1}`).innerHTML = "";
-        document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = "";
-        document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){guiltPerson(personNumber);};
+        //document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = "";
+        //document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){guiltPerson(personNumber);};
     }else{
         personSelectionArray[personNumber] = true;
-        document.getElementById(`candidate-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png">`;
-        document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png">`;
-        document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){alert('Du hast diese Person als unschuldig markiert, du kannst sie nicht als Täter markieren!');};
+        if(personSelectionArray.every((e) => e === true)){
+            alert('Du kannst nicht alle Personen als unschuldig markieren! Eine Person ist schuldig!');
+            personSelectionArray[personNumber] = false;
+        }else{
+            document.getElementById(`candidate-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
+            //document.getElementById(`murderer-${Number(personNumber) + 1}`).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
+            //document.getElementById(`murderer-${Number(personNumber) + 1}`).onclick = function(){alert('Du hast diese Person als unschuldig markiert, du kannst sie nicht als Täter markieren!');};
+        }
     }
+    console.log(personSelectionArray);
 }
 
 function guiltPerson(personNumber){}

@@ -32,6 +32,15 @@ html{
 }
 
 /*
+    Overlay-Klasse für Haken und Kreuze
+*/
+#overlay-mark{
+    width: 50px;
+    margin-top: 50%;
+    margin: auto;
+}
+
+/*
     Intro-Screen
 */
 
