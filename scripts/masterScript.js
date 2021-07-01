@@ -21,14 +21,174 @@ var screenController = new ScreenController('main');
 
 // Labeling von Personen
 const personLabeling = [
-    {
+    {   //Thomas
         hairColor: "green",
         older: false,
         hat: false,
         glasses: false,
         accessoired: false
     },
-    {},
+    {   //Oliver
+        hairColor: "blonde",
+        older: false,
+        hat: true,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Peter
+        hairColor: "brown",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Klaus
+        hairColor: "brown",
+        older: true,
+        hat: false,
+        glasses: true,
+        accessoired: false
+    },
+    {   //David
+        hairColor: "blond",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Albert
+        hairColor: "black",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: true
+    },
+    {   //Philip
+        hairColor: "black",
+        older: true,
+        hat: true,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Ingrid
+        hairColor: "brown",
+        older: true,
+        hat: true,
+        glasses: true,
+        accessoired: true
+    },
+    {   //Hannes
+        hairColor: "black",
+        older: true,
+        hat: false,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Simone
+        hairColor: "red",
+        older: false,
+        hat: false,
+        glasses: true,
+        accessoired: true
+    },
+    {   //Ute
+        hairColor: "blond",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: true
+    },
+    {   //Michael
+        hairColor: "white",
+        older: true,
+        hat: false,
+        glasses: true,
+        accessoired: false
+    },
+    {   //Tina
+        hairColor: "blond",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: true
+    },
+    {   //Stefan
+        hairColor: "white",
+        older: true,
+        hat: false,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Elke
+        hairColor: "black",
+        older: true,
+        hat: false,
+        glasses: true,
+        accessoired: true
+    },
+    {   //Katrin
+        hairColor: "blond",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: true
+    },
+    {   //Doris
+        hairColor: "red",
+        older: false,
+        hat: false,
+        glasses: false,
+        accessoired: true
+    },
+    {   //Andreas
+        hairColor: "white",
+        older: true,
+        hat: false,
+        glasses: true,
+        accessoired: false
+    },
+    {   //Tobias
+        hairColor: "black",
+        older: false,
+        hat: false,
+        glasses: true,
+        accessoired: false
+    },
+    {   //Manfred
+        hairColor: "white",
+        older: true,
+        hat: false,
+        glasses: true,
+        accessoired: false
+    },
+    {   //Markus
+        hairColor: "white",
+        older: true,
+        hat: false,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Jörg
+        hairColor: "brown",
+        older: false,
+        hat: true,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Patrick
+        hairColor: "brown",
+        older: false,
+        hat: true,
+        glasses: false,
+        accessoired: false
+    },
+    {   //Alfred
+        hairColor: "red",
+        older: true,
+        hat: false,
+        glasses: false,
+        accessoired: false
+    }    
 ];
 
 // Zuordnung von Events/Rätseln/Spielen zu den Häusern (Wald und Cabanon sind fixe Events!)
