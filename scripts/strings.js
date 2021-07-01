@@ -1,5 +1,7 @@
 // Hier kommen die ganzen hardgecodeten sowie dynamischen Texte rein 
 
+const genericHint =  "Die Person, die die Tat begangen hat, hatte folgende Eigenschaft nicht: ";
+
 const introText1 = "Im Dorf hat es einen Mordfall gegeben.";
 const introText2 = "Du als Detektiv hast die Aufgabe, diesen Fall zu lösen.";
 const introText3 = "Befrage die Menschen im Dorf um Hinweise zum Verdächtigen zu bekommen.";
@@ -90,6 +92,9 @@ const intro_bird = "Grüß dich! Wie? Ich soll dir was über den Mord erzählen?
 const bird_win = "Klasse du hast ihn. Vielen Dank. Also, ich habe eine Person mit + gesehen.";
 const bird_fail = "Er ist wirklich nicht leicht zu fangen, oder? Nun ja dann muss ich es wohl wieder selber machen. Ich habe jetzt keine Zeit für dich";
 
+const joker_1 = "Moin! Du hast Glück, denn ich habe etwas gesehen und werde es dir, ohne eine Gegenleistung dafür zu verlangen, verraten!";
+const joker_2 = "Ich habe etwas gesehen und muss es dir unbedingt verraten, weil ich will, dass dieses Schwein von Täter geschnappt wird!!";
+
 export  {introText1, introText2, introText3, introText4,
         intro_rätsel_1,rätsel_1,rätsel_1_Möglichkeiten,rätsel_1_Lösung,rätsel_1_Antwort, rätsel_1_falsch,
         intro_rätsel_2,rätsel_2,rätsel_2_Möglichkeiten,rätsel_2_Lösung,rätsel_2_Antwort, rätsel_2_falsch,
@@ -104,4 +109,4 @@ export  {introText1, introText2, introText3, introText4,
         intro_hut_2, hut_2_win_1, hut_2_win_2, hut_2_win_3, hut_2_fail,
         intro_shoot_1, shoot_1_win, shoot_1_fail,
         intro_shoot_2, shoot_2_win, shoot_2_fail,
-        intro_bird, bird_win, bird_fail};
+        intro_bird, bird_win, bird_fail, genericHint, joker_1, joker_2};
