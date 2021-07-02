@@ -71,7 +71,7 @@ const personLabeling = [
         hairLength: "long",
         older: false,
         hat: false,
-        glasses: false,
+        glasses: true,
         accessoire: false
     },
     {   //Albert
@@ -80,7 +80,7 @@ const personLabeling = [
         older: false,
         hat: false,
         glasses: false,
-        accessoire: true
+        accessoire: false
     },
     {   //Philip
         hairColor: "black",
@@ -94,7 +94,7 @@ const personLabeling = [
         hairColor: "brown",
         hairLength: "long",
         older: true,
-        hat: true,
+        hat: false,
         glasses: true,
         accessoire: true
     },
@@ -110,7 +110,7 @@ const personLabeling = [
         hairColor: "red",
         hairLength: "normal",
         older: false,
-        hat: false,
+        hat: true,
         glasses: true,
         accessoire: true
     },
@@ -140,7 +140,7 @@ const personLabeling = [
     },
     {   //Stefan
         hairColor: "white",
-        hairLength: "short",
+        hairLength: "normal",
         older: true,
         hat: false,
         glasses: false,
@@ -212,7 +212,7 @@ const personLabeling = [
     },
     {   //Patrick
         hairColor: "brown",
-        hairLength: "normal",
+        hairLength: "short",
         older: false,
         hat: true,
         glasses: false,
@@ -343,7 +343,9 @@ var housePersonMapping = {};
 
 var murderer;
 
-var remainingHours = 7;
+var shiftLock = "open";
+
+var remainingHours = 9;
 
 var currentlySelectedLocation;
 
@@ -405,7 +407,7 @@ function initializeHints(){
     hairLengths.forEach((hairLength) => {
         if(hairLength == "short"){hints = hints.concat(['für ihr Geschlecht kurze Haare']);}
         if(hairLength == "normal"){hints = hints.concat(['für ihr Geschlecht eine normale Haarlänge']);}
-        if(hairLength == "short"){hints = hints.concat(['für ihr Geschlecht lange Haare']);}
+        if(hairLength == "long"){hints = hints.concat(['für ihr Geschlecht lange Haare']);}
     });
 
     hints = hints.concat(notOlder ? ['höheres Alter'] : ['jüngeres Alter']);
@@ -459,6 +461,7 @@ function setGamePanelContent(screenName){
         };
     }
     if(screenName === 'main'){
+        console.log('entered main section in set gamepanel content method');
         document.getElementById('clock-div').style.backgroundImage = `url("assets/img/clock/clock_${remainingHours}.png")`;
 
         document.getElementById('status-panel').style.visibility = "visible";
@@ -490,20 +493,48 @@ function setGamePanelContent(screenName){
         document.getElementById('main-map-solve-button').onclick = handleClickOnSolve;
     }
     if(screenName === 'easteregg'){
+        console.log('entered easteregg section in set gamepanel content method');
         document.getElementById('confirm-button').onclick = function(){
+            console.log(`HINTS: ${hints}`);
             setGamePanelContent('main');
             handleClickOnLocation(currentlySelectedLocation);
             let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
             textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
             textToDisplay = textToDisplay.concat(hints[0]);
-            hints.shift();
+            tryShift();
             document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
             document.getElementById('back-to-map-button').onclick = function(){
                 alreadyVisitedMapping[currentlySelectedLocation] = true;
                 remainingHours -= 1;
+                shiftLock = "open";
                 setGamePanelContent('main');
+                return;
             };
         };
+    }
+    if(screenName === 'joker'){
+        console.log('entered joker section in set gamepanel content method');
+        console.log(`HINTS: ${hints}`);
+        handleClickOnLocation(currentlySelectedLocation);
+        let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
+            textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
+            textToDisplay = textToDisplay.concat(hints[0]);
+            tryShift();
+            document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
+            document.getElementById('back-to-map-button').onclick = function(){
+                alreadyVisitedMapping[currentlySelectedLocation] = true;
+                remainingHours -= 1;
+                shiftLock = "open";
+                setGamePanelContent('main');
+                return;
+            };
+    }
+}
+
+function tryShift(){
+    if(shiftLock == "open"){
+        hints.shift();
+        shiftLock = "closed";
     }
 }
 
@@ -536,6 +567,7 @@ function handleClickOnLocation(locationName){
         let effect = new Audio('../assets/audio/opening_door_sound_effect.mp3');
         effect.play();
         document.getElementById('speechbubble-div').style.visibility = 'visible';
+        document.getElementById('letter-div').style.visibility = "hidden";
         if(locationName === 'house1' || locationName === 'house5' || locationName === 'house9'){
             document.getElementById('location-div').style.backgroundImage = "url('assets/img/house_background1.jpg')";
             document.getElementById('person-div').style.gridRowStart = "10";
@@ -590,13 +622,62 @@ function handleClickOnLocation(locationName){
     if(locationName === 'cabanon'){
         // TODO: Knarzende Bretter-Soundeffekt
         document.getElementById('speechbubble-div').style.visibility = 'hidden';
+        document.getElementById('letter-div').style.visibility = "visible";
+        document.getElementById('status-panel').style.visibility = "visible";
+        document.getElementById('status-panel').innerHTML = "Finde den Briefumschlag!";
+        document.getElementById('letter-div').innerHTML = `<img src="assets/img/letter.png" id="letter-img-div">`;
+        placeLetterRandomly();
         document.getElementById('location-div').style.backgroundImage = "url('assets/img/cabanon_background.png')";
+        document.getElementById('letter-div').onclick = function(){
+            document.getElementById('letter-div').style.visibility = "hidden";
+            document.getElementById('speechbubble-div').style.visibility = 'visible';
+            let textToDisplay = 'Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ';
+            textToDisplay = textToDisplay.concat(hints[0]);
+            console.log(`textToDisplay: ${textToDisplay}`);
+            tryShift();
+            document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
+            document.getElementById('back-to-map-button').onclick = function(){
+                alreadyVisitedMapping[currentlySelectedLocation] = true;
+                remainingHours -= 1;
+                shiftLock = "open";
+                setGamePanelContent('main');
+                return;
+            };
+        };
     }
     if(locationName === 'forest'){
         // TODO: Blätterrascheln-Soundeffekt
         document.getElementById('speechbubble-div').style.visibility = 'hidden';
+        document.getElementById('letter-div').style.visibility = "visible";
+        document.getElementById('status-panel').style.visibility = "visible";
+        document.getElementById('status-panel').innerHTML = "Finde den Briefumschlag!";
+        document.getElementById('letter-div').innerHTML = `<img src="assets/img/letter.png" id="letter-img-div">`;
+        placeLetterRandomly();
         document.getElementById('location-div').style.backgroundImage = "url('assets/img/forest_background.jpg')";
+        document.getElementById('letter-div').onclick = function(){
+            document.getElementById('letter-div').style.visibility = "hidden";
+            document.getElementById('speechbubble-div').style.visibility = 'visible';
+            let textToDisplay = 'Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ';
+            textToDisplay = textToDisplay.concat(hints[0]);
+            console.log(`textToDisplay: ${textToDisplay}`);
+            tryShift();
+            document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
+            document.getElementById('back-to-map-button').onclick = function(){
+                alreadyVisitedMapping[currentlySelectedLocation] = true;
+                remainingHours -= 1;
+                shiftLock = "open";
+                setGamePanelContent('main');
+                return;
+            };
+        };
     }
+}
+
+function placeLetterRandomly(){
+    let randomX = Math.floor(Math.random() * 800);
+    let randomY = Math.floor(Math.random() * 500);
+    document.getElementById('letter-div').style.left = `${randomX}px`;
+    document.getElementById('letter-div').style.top = `${randomY}px`;
 }
 
 function handleClickOnBackToMap(){
@@ -645,7 +726,9 @@ function handleClickOnShowCandidates(){
 
     for(let i in personSelectionArray){
         let id = `candidate-${Number(i) + 1}`;
-        console.log(id);
+        if(personSelectionArray[i] === true){
+            document.getElementById(id).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
+        }
         document.getElementById(id).onclick = function(){togglePersonSelection(i);};
     }
     alert("Wähle Personen an, um sie als unschuldig zu markieren.");
@@ -676,6 +759,7 @@ function handleClickOnSolve(){
     for(let i in personSelectionArray){
         let id = `murderer-${Number(i) + 1}`;
         if(personSelectionArray[i] === true){
+            document.getElementById(id).innerHTML = `<img src="/assets/img/kreuz.png" id="overlay-mark">`;
             document.getElementById(id).onclick = function(){alert('Du kannst diese Person nicht zum Täter erklären, da du sie als unschuldig markiert hast!');};
         }else{
             document.getElementById(id).onclick = function(){guiltPerson(i);};
@@ -688,40 +772,58 @@ function handleEvent(eventName){
     switch(eventName){
         case 'quiz1':
             setGamePanelContent('easteregg');
+            break;
         case 'quiz2':
             setGamePanelContent('easteregg');
+            break;
         case 'quiz3':
             setGamePanelContent('easteregg');
+            break;
         case 'quiz4':
             setGamePanelContent('easteregg');
+            break;
         case 'quiz5':
             setGamePanelContent('easteregg');
+            break;
         case 'quiz6':
             setGamePanelContent('easteregg');
+            break;
         case 'quiz7':
             setGamePanelContent('easteregg');  
+            break;
         case 'quiz8':
             setGamePanelContent('easteregg');
+            break;
         case 'catch1':
             setGamePanelContent('easteregg');
+            break;
         case 'catch2':
-            setGamePanelContent('easteregg');   
+            setGamePanelContent('easteregg');  
+            break; 
         case 'hat1':
             setGamePanelContent('easteregg');
+            break;
         case 'hat2':
-            setGamePanelContent('easteregg');       
+            setGamePanelContent('easteregg');     
+            break;  
         case 'shoot1':
             setGamePanelContent('easteregg');
+            break;
         case 'shoot2':
             setGamePanelContent('easteregg');
+            break;
         case 'joker1':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('joker');
+            break;
         case 'joker2':
-            setGamePanelContent('easteregg');        
+            setGamePanelContent('joker');        
+            break;
         case 'cabanon':
-            setGamePanelContent('easteregg');       
+            setGamePanelContent('easteregg');   
+            break;    
         case 'forest':
             setGamePanelContent('easteregg');    
+            break;
     }
 }
 

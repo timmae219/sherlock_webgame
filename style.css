@@ -33,7 +33,7 @@ html{
 
 #clock-div{
     margin-left: 20%;
-    background-image: url("assets/img/clock/clock_7.png");
+    background-image: url("assets/img/clock/clock_9.png");
     background-repeat: no-repeat;
     background-size: contain;
     display: inline-block;
@@ -340,6 +340,18 @@ html{
     max-width: 170px;
     background-color: white;
     border: 4px black double;
+}
+
+#letter-div{
+    position: relative;
+    background-color: transparent;
+    background-image: url("assets/img/letter.png");
+    z-index: 3;
+}
+
+#letter-img-div{
+    height: 10px;
+    width: 15px;
 }
 
 /*
