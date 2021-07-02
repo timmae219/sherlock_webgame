@@ -529,6 +529,80 @@ function setGamePanelContent(screenName){
                 return;
             };
     }
+    if(screenName === 'quiz'){
+        console.log('entered quiz section in set gamepanel content method');
+
+        let quizObject = getQuizObject(houseEventMapping[currentlySelectedLocation]);
+
+        // set question params
+        document.getElementById('question-text').innerHTML = quizObject.introText;
+
+        document.getElementById('answer-1-button').innerHTML = quizObject.answers[0];
+        document.getElementById('answer-2-button').innerHTML = quizObject.answers[1];
+        document.getElementById('answer-3-button').innerHTML = quizObject.answers[2];
+        document.getElementById('answer-4-button').innerHTML = quizObject.answers[3];
+        if(quizObject.answers.length < 5){
+            document.getElementById('answer-5-button').style.visibility = "hidden";
+        } else{
+            document.getElementById('answer-5-button').innerHTML = quizObject.answers[4];
+        }
+
+        // set handlers
+        for(let answerNumber in quizObject.answers){
+            if(answerNumber == quizObject.correctAnswer){
+                document.getElementById(`answer-${Number(answerNumber) + 1}-button`).onclick = function(){
+                    setGamePanelContent('main');
+                    handleClickOnLocation(currentlySelectedLocation);
+                    let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
+                    textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
+                    textToDisplay = textToDisplay.concat(hints[0]);
+                    tryShift();
+                    document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
+                    document.getElementById('back-to-map-button').onclick = function(){
+                        alreadyVisitedMapping[currentlySelectedLocation] = true;
+                        remainingHours -= 1;
+                        shiftLock = "open";
+                        setGamePanelContent('main');
+                        return;
+                    };
+                };
+            }else{
+                document.getElementById(`answer-${Number(answerNumber) + 1}-button`).onclick = function(){
+                    setGamePanelContent('main');
+                    handleClickOnLocation(currentlySelectedLocation);
+                    let textToDisplay = getFailText(houseEventMapping[currentlySelectedLocation]);
+                    document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
+                    document.getElementById('back-to-map-button').onclick = function(){
+                        alreadyVisitedMapping[currentlySelectedLocation] = true;
+                        remainingHours -= 1;
+                        setGamePanelContent('main');
+                        return;
+                    };
+                };
+            }
+        }
+    }
+}
+
+function getQuizObject(event){
+    switch(event){
+        case 'quiz1':
+            return quizzes[0];
+        case 'quiz2':
+            return quizzes[1];
+        case 'quiz3':
+            return quizzes[2];
+        case 'quiz4':
+            return quizzes[3];
+        case 'quiz5':
+            return quizzes[4];
+        case 'quiz6':
+            return quizzes[5];
+        case 'quiz7':
+            return quizzes[6];
+        case 'quiz8':
+            return quizzes[7];    
+    }
 }
 
 function tryShift(){
@@ -771,28 +845,28 @@ function handleClickOnSolve(){
 function handleEvent(eventName){
     switch(eventName){
         case 'quiz1':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'quiz2':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'quiz3':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'quiz4':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'quiz5':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'quiz6':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'quiz7':
-            setGamePanelContent('easteregg');  
+            setGamePanelContent('quiz');  
             break;
         case 'quiz8':
-            setGamePanelContent('easteregg');
+            setGamePanelContent('quiz');
             break;
         case 'catch1':
             setGamePanelContent('easteregg');

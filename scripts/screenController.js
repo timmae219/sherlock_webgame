@@ -18,7 +18,9 @@ export default class ScreenController{
             case 'fail':
                 return this.getRawHtml("./screens/end/fail.html");        
             case 'easteregg':
-                return this.getRawHtml("./screens/game/easteregg.html");            
+                return this.getRawHtml("./screens/game/easteregg.html");     
+            case 'quiz':
+                return this.getRawHtml("./screens/game/quiz.html");           
         }
     }
 
