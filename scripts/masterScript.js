@@ -374,8 +374,8 @@ var hints = [];
 /*
     Spiel-Kontrollfluss
 */
-//handleIntroScreen();
-gotoMainScreen();
+handleIntroScreen();
+//gotoMainScreen();
 initializeMurderer();
 initializeHouseEventMapping();
 initializePersonHouseMapping();
@@ -436,6 +436,8 @@ function setGamePanelContent(screenName){
     document.getElementById("gamepanel").innerHTML= screenController.getScreenContent();
     if(screenName === 'intro'){
         document.getElementById('status-panel').style.visibility = "hidden";
+        document.getElementById('clock-label').style.visibility = `hidden`;
+        document.getElementById('clock-div').style.visibility = `hidden`;
         document.getElementById('intro-panel').classList.add('animation');
         document.getElementById('intro-panel').innerHTML = `<p>${introText1}</p>`;
         document.getElementById('intro-panel').onclick = function(){
@@ -462,6 +464,8 @@ function setGamePanelContent(screenName){
     }
     if(screenName === 'main'){
         console.log('entered main section in set gamepanel content method');
+        document.getElementById('clock-label').style.visibility = `visible`;
+        document.getElementById('clock-div').style.visibility = `visible`;
         document.getElementById('clock-div').style.backgroundImage = `url("assets/img/clock/clock_${remainingHours}.png")`;
 
         document.getElementById('status-panel').style.visibility = "visible";
@@ -475,20 +479,20 @@ function setGamePanelContent(screenName){
             }
         }
 
-        document.getElementById('main-map-house1').onclick = function(){handleClickOnLocation('house1');};
-        document.getElementById('main-map-house2').onclick = function(){handleClickOnLocation('house2');};
-        document.getElementById('main-map-house3').onclick = function(){handleClickOnLocation('house3');};
-        document.getElementById('main-map-house4').onclick = function(){handleClickOnLocation('house4');};
-        document.getElementById('main-map-house5').onclick = function(){handleClickOnLocation('house5');};
-        document.getElementById('main-map-house6').onclick = function(){handleClickOnLocation('house6');};
-        document.getElementById('main-map-house7').onclick = function(){handleClickOnLocation('house7');};
-        document.getElementById('main-map-house8').onclick = function(){handleClickOnLocation('house8');};
-        document.getElementById('main-map-house9').onclick = function(){handleClickOnLocation('house9');};
-        document.getElementById('main-map-house10').onclick = function(){handleClickOnLocation('house10');};
-        document.getElementById('main-map-house11').onclick = function(){handleClickOnLocation('house11');};
-        document.getElementById('main-map-house12').onclick = function(){handleClickOnLocation('house12');};
-        document.getElementById('main-map-cabanon').onclick = function(){handleClickOnLocation('cabanon');};
-        document.getElementById('main-map-forest').onclick = function(){handleClickOnLocation('forest');};
+        document.getElementById('main-map-house1').onclick = function(){handleClickOnLocation('house1', false);};
+        document.getElementById('main-map-house2').onclick = function(){handleClickOnLocation('house2', false);};
+        document.getElementById('main-map-house3').onclick = function(){handleClickOnLocation('house3', false);};
+        document.getElementById('main-map-house4').onclick = function(){handleClickOnLocation('house4', false);};
+        document.getElementById('main-map-house5').onclick = function(){handleClickOnLocation('house5', false);};
+        document.getElementById('main-map-house6').onclick = function(){handleClickOnLocation('house6', false);};
+        document.getElementById('main-map-house7').onclick = function(){handleClickOnLocation('house7', false);};
+        document.getElementById('main-map-house8').onclick = function(){handleClickOnLocation('house8', false);};
+        document.getElementById('main-map-house9').onclick = function(){handleClickOnLocation('house9', false);};
+        document.getElementById('main-map-house10').onclick = function(){handleClickOnLocation('house10', false);};
+        document.getElementById('main-map-house11').onclick = function(){handleClickOnLocation('house11', false);};
+        document.getElementById('main-map-house12').onclick = function(){handleClickOnLocation('house12', false);};
+        document.getElementById('main-map-cabanon').onclick = function(){handleClickOnLocation('cabanon', false);};
+        document.getElementById('main-map-forest').onclick = function(){handleClickOnLocation('forest', false);};
         document.getElementById('main-map-show-candidates-button').onclick = handleClickOnShowCandidates;
         document.getElementById('main-map-solve-button').onclick = handleClickOnSolve;
     }
@@ -497,7 +501,7 @@ function setGamePanelContent(screenName){
         document.getElementById('confirm-button').onclick = function(){
             console.log(`HINTS: ${hints}`);
             setGamePanelContent('main');
-            handleClickOnLocation(currentlySelectedLocation);
+            handleClickOnLocation(currentlySelectedLocation, true);
             let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
             textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
             textToDisplay = textToDisplay.concat(hints[0]);
@@ -515,7 +519,7 @@ function setGamePanelContent(screenName){
     if(screenName === 'joker'){
         console.log('entered joker section in set gamepanel content method');
         console.log(`HINTS: ${hints}`);
-        handleClickOnLocation(currentlySelectedLocation);
+        handleClickOnLocation(currentlySelectedLocation, true);
         let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
             textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
             textToDisplay = textToDisplay.concat(hints[0]);
@@ -552,7 +556,7 @@ function setGamePanelContent(screenName){
             if(answerNumber == quizObject.correctAnswer){
                 document.getElementById(`answer-${Number(answerNumber) + 1}-button`).onclick = function(){
                     setGamePanelContent('main');
-                    handleClickOnLocation(currentlySelectedLocation);
+                    handleClickOnLocation(currentlySelectedLocation, true);
                     let textToDisplay = getSuccessText(houseEventMapping[currentlySelectedLocation]);
                     textToDisplay = textToDisplay.concat('Die Person hatte die folgende Eigenschaft <b><u>NICHT</u></b>: ');
                     textToDisplay = textToDisplay.concat(hints[0]);
@@ -569,7 +573,7 @@ function setGamePanelContent(screenName){
             }else{
                 document.getElementById(`answer-${Number(answerNumber) + 1}-button`).onclick = function(){
                     setGamePanelContent('main');
-                    handleClickOnLocation(currentlySelectedLocation);
+                    handleClickOnLocation(currentlySelectedLocation, true);
                     let textToDisplay = getFailText(houseEventMapping[currentlySelectedLocation]);
                     document.getElementById('speechbubble-div').innerHTML = `<p>${textToDisplay}</p></br><button id="back-to-map-button">OK</button>`;
                     document.getElementById('back-to-map-button').onclick = function(){
@@ -622,7 +626,7 @@ function gotoMainScreen(){
     mainTheme.play();
 }
 
-function handleClickOnLocation(locationName){
+function handleClickOnLocation(locationName, mute){
     if(remainingHours <= 0){
         alert('Du hast keine Zeit mehr übrig, du musst den Täter jetzt schnell fassen!');
         setGamePanelContent('main');
@@ -639,7 +643,7 @@ function handleClickOnLocation(locationName){
     }
     if(locationName.includes('house')){
         let effect = new Audio('../assets/audio/opening_door_sound_effect.mp3');
-        effect.play();
+        if(!mute){effect.play();}
         document.getElementById('speechbubble-div').style.visibility = 'visible';
         document.getElementById('letter-div').style.visibility = "hidden";
         if(locationName === 'house1' || locationName === 'house5' || locationName === 'house9'){
@@ -694,7 +698,8 @@ function handleClickOnLocation(locationName){
         };
     }
     if(locationName === 'cabanon'){
-        // TODO: Knarzende Bretter-Soundeffekt
+        let effect = new Audio('../assets/audio/squeaky_wood.mp3');
+        effect.play();
         document.getElementById('speechbubble-div').style.visibility = 'hidden';
         document.getElementById('letter-div').style.visibility = "visible";
         document.getElementById('status-panel').style.visibility = "visible";
@@ -720,7 +725,8 @@ function handleClickOnLocation(locationName){
         };
     }
     if(locationName === 'forest'){
-        // TODO: Blätterrascheln-Soundeffekt
+        let effect = new Audio('../assets/audio/leaves.mp3');
+        effect.play();
         document.getElementById('speechbubble-div').style.visibility = 'hidden';
         document.getElementById('letter-div').style.visibility = "visible";
         document.getElementById('status-panel').style.visibility = "visible";
@@ -904,7 +910,7 @@ function handleEvent(eventName){
 // Diese Funktion ordnet den Gebäuden zugehörige Events zu (jede Runde anders!) 
 function initializeHouseEventMapping(){
     let houseNameList = ['house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8', 'house9', 'house10', 'house11', 'house12'];
-    let eventList = ['catch', 'catch', 'shoot', 'shoot', 'hat', 'hat', 'quiz', 'quiz', 'quiz', 'quiz', 'joker', 'joker'];   // joker -> man bekommt den Hinweis direkt
+    let eventList = ['quiz', 'quiz', 'shoot', 'shoot', 'quiz', 'quiz', 'quiz', 'quiz', 'quiz', 'quiz', 'joker', 'joker'];   // joker -> man bekommt den Hinweis direkt
     let quizList = [1,2,3,4,5,6,7,8];
     let catchList = [1,2];
     let hutList = [1,2];
